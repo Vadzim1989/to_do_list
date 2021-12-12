@@ -1,10 +1,11 @@
 import * as React from 'react';
 import Stack from '@mui/material/Stack';
 import { TextField, Button, Todo } from '../components';
-import { useState } from 'react';
+import { useState, useCallback } from 'react';
 import { useSelector, useDispatch } from 'react-redux'
 import { getTodos } from '../redux/todoSelectors'
-import { addTodo, deleteTodo } from '../redux/todoActions'
+import { addTodo, deleteTodo, switchTodoState } from '../redux/todoActions'
+import { Filter } from '../components/Filter';
 
 
 export const TodoListPage = () => {
@@ -13,8 +14,6 @@ export const TodoListPage = () => {
     const todos = useSelector(getTodos);
     const dispatch = useDispatch();
 
-
-    console.log(todos);
     const handleChange = ({target: {value}}) => {
         setTodoText(value);
     };
@@ -25,16 +24,21 @@ export const TodoListPage = () => {
         setTodoText('');
     };
 
-    const onTodoClick = () => {
-        console.log('todo click')
-    };
+    const onTodoClick = useCallback((id) => {
+        dispatch(switchTodoState(id))
+    },[dispatch]);
 
-    const onTodoDelete = (id) => {
+    const onTodoDelete = useCallback((id) => {
         dispatch(deleteTodo(id));
-    }
+    },[dispatch]);
 
     return (<>
         <h1>ToDo list</h1>
+        <Stack justifyContent="center"
+                alignItems="center"
+                marginBottom={5}>
+            <Filter/>
+        </Stack>
         <Stack  direction="row" 
                 spacing={2}
                 justifyContent="center"
