@@ -23,3 +23,8 @@ export const switchTodoState = (id) => ({
         toSwitchId: id
     }
 });
+
+export const changeFilter = (filterType) => ({
+    type: todoActionTypes.CHANGE_FILTER,
+    payload: {filterType}
+});
