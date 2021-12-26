@@ -6,6 +6,8 @@ import { useSelector, useDispatch } from 'react-redux'
 import { getFilteredTodos } from '../redux/todo/todoSelectors'
 import { addTodo, deleteTodo, switchTodoState } from '../redux/todo/todoActions'
 import { Filter } from '../components/Filter';
+import ButtonAppBar from '../components/ButtonAppBar';
+
 
 
 export const TodoListPage = () => {
@@ -33,6 +35,7 @@ export const TodoListPage = () => {
     },[dispatch]);
 
     return (<>
+        <ButtonAppBar/>
         <h1>ToDo list</h1>
         <Stack justifyContent="center"
                 alignItems="center"

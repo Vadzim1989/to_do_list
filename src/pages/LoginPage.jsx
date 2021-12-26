@@ -1,4 +1,4 @@
-import * as React from 'react';
+import React, { useEffect } from 'react';
 import Avatar from '@mui/material/Avatar';
 import Button from '@mui/material/Button';
 import CssBaseline from '@mui/material/CssBaseline';
@@ -12,14 +12,15 @@ import Grid from '@mui/material/Grid';
 import LockOutlinedIcon from '@mui/icons-material/LockOutlined';
 import Typography from '@mui/material/Typography';
 import { createTheme, ThemeProvider } from '@mui/material/styles';
-import { singIn } from '../firebase/firebaseAuth';
-import { useDispatch } from 'react-redux';
+import { useDispatch, useSelector } from 'react-redux';
 import { userLogin } from '../redux/user/userActions'
+import { getUser } from '../redux/user/userSelector'
+import { Navigate } from 'react-router-dom'
 
 const theme = createTheme();
 
 export function LoginPage() {
-
+    const {user} = useSelector(getUser);
     const dispatch = useDispatch();
 
     const handleSubmit = (event) => {
@@ -35,7 +36,9 @@ export function LoginPage() {
         }); */
     };
 
-    return (
+    return user !== null ?
+    <Navigate to='/todos'/> :
+    (
         <ThemeProvider theme={theme}>
         <Grid container component="main" sx={{ height: '100vh' }}>
             <CssBaseline />
